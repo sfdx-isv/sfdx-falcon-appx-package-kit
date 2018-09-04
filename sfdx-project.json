@@ -1,32 +1,35 @@
 {
   "packageDirectories": [
-    { "path": "sfdx-source/my_ns_prefix", "default": true },
+    { "path": "sfdx-source/<%-finalAnswers.packageDirectory%>", "default": true },
     { "path": "sfdx-source/unpackaged"},
     { "path": "sfdx-source/untracked"}
   ],
-  "namespace": "my_ns_prefix",
+  "namespace": "<%-finalAnswers.namespacePrefix%>",
   "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "43.0",
+  "sourceApiVersion": "<%-finalAnswers.sfdcApiVersion%>",
   "plugins": {
     "sfdxFalcon": {
-      "appxPackage": {
-        "schemaVersion"       : "0.0.1",
-        "projectName"         : "my-sfdx-falcon-project",
-        "projectType"         : "managed-package",
-        "namespacePrefix"     : "my_ns_prefix",
-        "packageName"         : "My Package Name",
-        "metadataPackageId"   : "033000000000000",
-        "packageVersionId"    : {
-          "stable": "04t000000000000",
-          "beta"  : "04t000000000000"
-        },
-        "gitRemoteUri"        : "https://github.com/my-org/my-repo.git",
-        "key3": ["value3a", "value3b", "value3c"],
-        "key4": {
-          "key4a": "value4a",
-          "key4b": "value4b"
+      "producerAlias"   : "<%-finalAnswers.producerAlias%>",
+      "producerName"    : "<%-finalAnswers.producerName%>",
+      "projectAlias"    : "<%-finalAnswers.projectAlias%>",
+      "projectName"     : "<%-finalAnswers.projectName%>",
+      "projectType"     : "<%-finalAnswers.projectType%>",
+      "defaultRecipe"   : "<%-finalAnswers.defaultRecipe%>",
+      "gitRemoteUri"    : "<%-finalAnswers.gitRemoteUri%>",
+      "gitHubUrl"       : "<%-finalAnswers.gitHubUrl%>",
+      "projectVersion"  : "<%-finalAnswers.projectVersion%>",
+      "schemaVersion"   : "<%-finalAnswers.schemaVersion%>",
+      "pluginVersion"   : "<%-finalAnswers.pluginVersion%>",
+      "appxPackage"     : {
+        "namespacePrefix"   : "<%-finalAnswers.namespacePrefix%>",
+        "packageName"       : "<%-finalAnswers.packageName%>",
+        "metadataPackageId" : "<%-finalAnswers.metadataPackageId%>",
+        "packageVersionId"  : {
+          "release" : "<%-finalAnswers.packageVersionIdRelease%>",
+          "beta"    : "<%-finalAnswers.packageVersionIdBeta%>"
         }
-      }
-    }			
-  }  
+      },
+      "appxDemo": {}
+    }
+  }
 }
