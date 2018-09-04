@@ -1,0 +1,259 @@
+#!/bin/bash
+####################################################################################################
+#
+# FILENAME:     setup-local-project
+#
+# PURPOSE:      Guides an individual developer through setup of this project for local development
+#
+# DESCRIPTION:  When an SFDX-Falcon based project is first cloned by an individual developer, the
+#               first thing the developer must do is create a local-config.sh file based on the
+#               local-config-template.sh file that was customized by the project's Release Manager.
+#
+#               The local-config.sh file MUST be present inside dev-tools/lib or else NONE of the
+#               SFDX-Falcon scripts will run.  Also, each Developer will need to ensure that the
+#               DEV_HUB_ALIAS variable is set to reflect the DevHub alias used in their local 
+#               environment.
+#
+#               This script creates the local-config.sh file based on the template and then walks
+#               the developer through a brief interview to ask for the name of their Dev Hub.
+#
+# INSTRUCTIONS: Execute the following command from inside your project's root directory:  
+#               ./dev-tools/setup-local-project
+#
+# RELATED DOCS: TODO: ?????
+#               └─ https://???.???.com
+#
+#               TODO: ?????
+#               ├─ https://www.????.com
+#               └─ https://www.????.com
+#
+#### LOAD SHARED FUNCTIONS LIBRARY #################################################################
+#
+# Suppress the load of LOCAL_CONFIG variables.  If you don't do this
+# the script will error out because it's very likely that there is no
+# local-config.sh file when this script is being executed.
+SUPPRESS_LOCAL_CONFIG="true"
+
+# Load shared functions library.
+if [ ! -r `dirname $0`/lib/shared-functions.sh ]; then
+  echo "\nFATAL ERROR: `tput sgr0``tput setaf 1`Could not load dev-tools/lib/shared-functions.sh.  File not found.\n"
+  exit 1
+fi
+source `dirname $0`/lib/shared-functions.sh
+
+##
+#### CONFIRM SCRIPT EXECUTION ######################################################################
+##
+# Determine if the local-config.sh file already exists.  If it does, show a warning message.
+if [ -r `dirname $0`/lib/local-config.sh ]; then
+  echoWarningMsg "Running this script will modify your existing local-config.sh file."
+fi
+
+confirmScriptExecution "Do you want to start the local project setup wizard?"
+#
+#
+#### CREATE LOCAL VARIABLES ########################################################################
+#
+# Initialize to FALSE. Remains false until the user accepts config vars.
+CONFIG_VARS_ACCEPTED="false"
+
+# Use the findProjectRoot function to detect the current Project Root.
+DETECTED_PROJECT_ROOT=""
+findProjectRoot DETECTED_PROJECT_ROOT
+
+# Local setup will only ask the developer for their Dev Hub Alias.
+DEV_HUB_ALIAS=""
+#
+#
+#### FUNCTION: clearConfigVariables ################################################################
+#
+function clearConfigVariables () {
+  DEV_HUB_ALIAS=""
+}
+#
+#### FUNCTION: localSetupInterview #################################################################
+#
+function localSetupInterview () {
+
+  # Specify the total number of questions in the interview
+  resetQuestionCounter 1
+
+  #
+  # QUESTION 1: Ask for the DEV_HUB_ALIAS value
+  #
+  echoQuestion "Specify the alias of your Developer Hub"
+
+  # Explain to the developer that they need to know the alias to their Dev Hub
+  printf "%s\n" \
+      "IMPORTANT: Before using any of the dev-tools created for this project, you must authenticate " \
+      "your CLI to the Developer Hub belonging to your company/organization.  You must also have " \
+      "created an alias for that connection and know what it is to complete this wizard. " \
+      "" \
+      "If you don't know what your Dev Hub's alias is, this script can show you a list of orgs that " \
+      "your CLI is currently connected to." \
+      ""
+  # Pause execution with a "Press any Key" prompt so the user can read the above warning.
+  showPressAnyKeyPrompt
+  echo "\n"
+
+  # Ask the user if they want to see a list of orgs connected to their CLI
+  local USER_REQUESTS_ORG_LIST=""
+  confirmChoice USER_REQUESTS_ORG_LIST \
+      "Would you like to see a list of orgs your CLI is connected to?" \
+      "(type YES to confirm, or NO to skip) "
+  if [ "$USER_REQUESTS_ORG_LIST" = "YES" ]; then
+    echo "\nFetching list of connected orgs - Please wait\n"
+    (exec sfdx force:org:list -p)
+  fi
+
+  # Ask if the user knows what the Alias to their Dev Hub is.
+  local USER_KNOWS_THEIR_ALIAS=""
+  confirmChoice USER_KNOWS_THEIR_ALIAS \
+      "Is your CLI connected to your Dev Hub, and do you know the alias?" \
+      "(type YES to continue, or NO to quit) "
+  if [ "$USER_KNOWS_THEIR_ALIAS" != "YES" ]; then
+    echoErrorMsg "A Dev Hub connection is required to complete SFDX-Falcon setup."
+    tput sgr 0; tput bold;
+    echo "Please authenticate your CLI to a Dev Hub and make sure to add an alias. "
+    echo "Run this script again once you have completed this step.\n"
+    exit 1
+  fi
+
+  # Ask the user for their Dev Hub Alias.
+  askUserForStringValue DEV_HUB_ALIAS \
+      "What is the alias of the Dev Hub that you want to use with this project?" \
+      "You must specify the alias of the Dev Hub that you want to use with this project"
+
+  # Validate that the string provided by the user represents a valid SFDX org connection
+
+  #---> START HERE!!!!!
+
+exit 0
+
+
+}
+#
+#### FUNCTION: confirmConfigVariables ##############################################################
+#
+function confirmConfigVariables () {
+  # Final validation message
+  echo "\n`tput setaf 7``tput bold`Local Configuration Variables:`tput sgr0`"
+
+  # Show all the vars that will be set
+  echoUserSuppliedConfigVars
+
+  # Ask the user to confirm their variables.
+  echo "Update dev-tools/templates/local-config-template.sh with the above values?\n"
+  read -p "(type YES to accept,  NO to begin again) " CONFIRM_EXECUTION
+  if [ "$CONFIRM_EXECUTION" = "YES" ]; then
+    CONFIG_VARS_ACCEPTED="true"
+  fi
+
+  return 0
+}
+#
+#### FUNCTION: echoUserSuppliedConfigVars ##########################################################
+#
+function echoUserSuppliedConfigVars () {
+  echo ""
+  echo "`tput setaf 7`NAMESPACE_PREFIX ---------->`tput sgr0` " $NAMESPACE_PREFIX
+  echo "`tput setaf 7`PACKAGE_NAME -------------->`tput sgr0` " $PACKAGE_NAME
+  echo "`tput setaf 7`METADATA_PACKAGE_ID ------->`tput sgr0` " $METADATA_PACKAGE_ID
+  echo "`tput setaf 7`PACKAGE_VERSION_ID -------->`tput sgr0` " $PACKAGE_VERSION_ID
+  echo "`tput setaf 7`GIT_REMOTE_URI ------------>`tput sgr0` " $GIT_REMOTE_URI
+  echo ""
+}
+#
+#### FUNCTION: setLocalConfigTemplateFileVariable ##################################################
+#
+function setLocalConfigTemplateFileVariable () {
+  # Create a local variable to store the value of 
+  # the variable provided by the first argument.
+  local ENV_VAR_NAME=$1
+  eval "local ENV_VAR_VALUE=\$$1"
+
+  # Use PERLs in-place find-and-replace to find the key specified by
+  # argument 1 (the ENV VAR) and replace it with the KEY+VALUE specified
+  # by argument 2.  In other words...
+  # NAMESPACE_PREFIX=SomePreviousString 
+  #   becomes....
+  # NAMESPACE_PREFIX="SomeNewString"
+  perl -pi -e "s/^${ENV_VAR_NAME}=.*/${ENV_VAR_NAME}=\"${ENV_VAR_VALUE}\"/g;" "$DETECTED_PROJECT_ROOT/dev-tools/templates/local-config-template.sh"
+
+}
+#
+#### FUNCTION: updateProjectFiles ##################################################################
+#
+function updateSfdxProjectJson () {
+  # Use PERLs in-place find-and-replace to modify the line in 
+  # sfdx-project.json where the default package directory is set
+  # by argument 1.  In other words...
+  #     { "path": "sfdx-source/my_ns_prefix", "default": true },
+  #   becomes....
+  #     { "path": "sfdx-source/new_ns_prefix_value", "default": true },
+  perl -pi -e "s#.*\"default\": true.*#    { \"path\": \"sfdx-source/${1}\", \"default\": true },#g;" "$DETECTED_PROJECT_ROOT/sfdx-project.json"
+
+  # If the namespace provided is "force-app", delete the line in
+  # sfdx-project.json where the "namespace" key-value pair is set.
+  # If we find this, return from the function immediately.
+  if [ "${1}" = "force-app" ]; then
+    perl -ni -e "/.*\"namespace\":.*/ || print" "$DETECTED_PROJECT_ROOT/sfdx-project.json"
+    return 0
+  fi
+
+  # Use the same PERL mechanism to modify the "namespace" key-value pair.  Example...
+  #     "namespace": "my_ns_prefix",
+  #   becomes...
+  #     "namespace": "new_ns_prefix_value",
+  perl -pi -e "s#.*\"namespace\":.*#  \"namespace\": \"${1}\",#g;" "$DETECTED_PROJECT_ROOT/sfdx-project.json"  
+
+}
+#
+#### FUNCTION: updateProjectFiles ##################################################################
+#
+function updateProjectFiles () {
+  # Prep the GIT_REMOTE_URI values to make sure we escape forward slashes
+  # that are likely present in the paths stored by those vars.
+  GIT_REMOTE_URI="${GIT_REMOTE_URI//\//\/}"
+
+  # Write the values discovered during the Setup Interview to the 
+  # local-config-template.sh file.  Note that we're passing the names
+  # of the variables rather than their values.  This is intentional and
+  # lets the function find the right line to modify in local-config-template.sh
+  setLocalConfigTemplateFileVariable NAMESPACE_PREFIX
+  setLocalConfigTemplateFileVariable PACKAGE_NAME
+  setLocalConfigTemplateFileVariable METADATA_PACKAGE_ID
+  setLocalConfigTemplateFileVariable PACKAGE_VERSION_ID
+  setLocalConfigTemplateFileVariable GIT_REMOTE_URI
+
+  # Update sfdx-project.json with the value specified in NAMESPACE_PREFIX
+  updateSfdxProjectJson $NAMESPACE_PREFIX
+}
+
+####################################################################################################
+## MAIN EXECUTION BODY
+####################################################################################################
+#
+# Launch the Project Setup Interview.  If the user does not accept the list of
+# config variables that 
+while [ "$CONFIG_VARS_ACCEPTED" != "true" ]; do
+  clearConfigVariables
+  localSetupInterview
+#  confirmConfigVariables
+done
+
+# If we get here, it means that the user has specified values for all of the
+# environment variables and confirmed that they are the ones that should be
+# saved to local-config-template.sh.  Now we need to make that happen.
+#updateProjectFiles
+
+####################################################################################################
+## CLOSING MESSAGE
+####################################################################################################
+#
+# Echo the closing message.
+echoScriptCompleteMsg  "SFDX-Falcon project setup complete. \n
+`tput setaf 7`IMPORTANT:`tput sgr0` Commit and push dev-tools/templates/local-config-template.sh to your VCS to ensure
+that your developers can initialize their projects using the values you've specified."
+
+##END##

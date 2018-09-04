@@ -1,0 +1,29 @@
+{
+  "name": "sfdx-falcon-template",
+  "description": "An extended Salesforce DX project directory template, designed to support complex projects and managed packages.",
+  "version": "0.3.1",
+  "author": "Vivek M. Chawla @VivekMChawla",
+  "license": "MIT",
+  "bugs": "https://github.com/sfdx-isv/sfdx-falcon-template/issues",
+  "homepage": "https://github.com/sfdx-isv/sfdx-falcon-template",
+  "repository": "sfdx-isv/sfdx-falcon-template",
+  "main": "sfdx-project.json",
+  "keywords": [
+    "salesforce", "sfdx-plugin", "sfdx-falcon", "sfdx"
+  ],
+  "files": [
+    "/.circleci",
+    "/config",
+    "/data",
+    "/dev-tools",
+    "/mdapi-source",
+    "/sfdx-source",
+    "/temp",
+    ".forceignore",
+    ".gitignore",
+    "LICENSE",
+    "package.json",
+    "README.md",
+    "sfdx-project.json"
+  ]
+}
