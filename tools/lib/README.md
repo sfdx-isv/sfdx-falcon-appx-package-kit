@@ -1,4 +1,4 @@
-# TODO: dev-tools / lib
+# TODO: tools / lib
 
 ### What type of files should be kept in this directory?
 

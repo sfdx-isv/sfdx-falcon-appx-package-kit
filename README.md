@@ -62,7 +62,7 @@ Your Salesforce, GitHub, and Local environments should meet the following prereq
 [7]: http://bit.ly/install-salesforce-cli   "Install the Salesforce CLI"
 
 ### Important Note for Windows Users
-The commands used in this document and (more importantly) the shell scripts provided in `dev-tools` use syntax supported by the Bash shell (and its cohorts, like Zsh).
+The commands used in this document and (more importantly) the shell scripts provided in `tools` use syntax supported by the Bash shell (and its cohorts, like Zsh).
 
 Windows 10 users can enable the "Windows Subsystem for Linux" feature and install the Bash shell.  There's a great walkthrough that shows you [How to Install and Use the Linux Bash Shell on Windows 10](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10) over at HowToGeek.com.  
 
@@ -156,7 +156,7 @@ There are two required edits (and one optional one) you need to make inside your
 }
 ```
 ### Customize Developer Tools
-Follow the instructions in the [dev-tools README](dev-tools/README.md) for detailed information on how create and edit a `local-config.sh` so you can customize the behavior of the SFDX-Falcon dev-tools when deployed to your developer's machines.
+Follow the instructions in the [tools README](tools/README.md) for detailed information on how create and edit a `local-config.sh` so you can customize the behavior of the SFDX-Falcon tools when deployed to your developer's machines.
 
 ## Resources
 List of resources TBA

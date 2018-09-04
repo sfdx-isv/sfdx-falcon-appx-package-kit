@@ -8,7 +8,7 @@
 # DESCRIPTION:  Self-signed SSL certificates (AKA "Server keys") are needed for JWT auth stuff.
 #
 # INSTRUCTIONS: Execute the following command relative to your project's root directory:  
-#               ./dev-tools/make-server-key
+#               ./tools/make-server-key
 #
 # RELATED DOCS: Create Your Connected App (Trailhead Module)
 #               └─ https://trailhead.salesforce.com/trails/sfdx_get_started/modules/sfdx_travis_ci/units/sfdx_travis_ci_connected_app
@@ -27,7 +27,7 @@
 #### LOAD SHARED FUNCTIONS LIBRARY #################################################################
 #
 if [ ! -r `dirname $0`/lib/shared-functions.sh ]; then
-  echo "\nFATAL ERROR: `tput sgr0``tput setaf 1`Could not load dev-tools/lib/shared-functions.sh.  File not found.\n"
+  echo "\nFATAL ERROR: `tput sgr0``tput setaf 1`Could not load tools/lib/shared-functions.sh.  File not found.\n"
   exit 1
 fi
 source `dirname $0`/lib/shared-functions.sh

@@ -7,10 +7,10 @@
 #
 # DESCRIPTION:  Executing this script will first delete the exisisting default scratch org for
 #               this project (if it exists), then create a new one using the source and config
-#               information defined in your dev-tools/lib/local-config.sh file.
+#               information defined in your tools/lib/local-config.sh file.
 #
 # INSTRUCTIONS: Execute the following command from the root of your SFDX project directory.
-#               ./dev-tools/rebuild-scratch-org
+#               ./tools/rebuild-scratch-org
 #
 ####################################################################################################
 #
@@ -22,7 +22,7 @@
 #
 # Make sure that the shared-functions.sh script exists.
 if [ ! -r `dirname $0`/lib/shared-functions.sh ]; then
-  echo "\nFATAL ERROR: `tput sgr0``tput setaf 1`Could not load dev-tools/lib/shared-functions.sh.  File not found.\n"
+  echo "\nFATAL ERROR: `tput sgr0``tput setaf 1`Could not load tools/lib/shared-functions.sh.  File not found.\n"
   exit 1
 fi
 
@@ -30,7 +30,7 @@ fi
 REQUESTED_OPERATION="REBUILD_SCRATCH_ORG"
 
 # Load the shared-functions.sh library.  This action will also cause the
-# config variables from dev-tools/lib/local-config.sh to be loaded.
+# config variables from tools/lib/local-config.sh to be loaded.
 source `dirname $0`/lib/shared-functions.sh
 #
 ##

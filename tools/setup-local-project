@@ -9,7 +9,7 @@
 #               first thing the developer must do is create a local-config.sh file based on the
 #               local-config-template.sh file that was customized by the project's Release Manager.
 #
-#               The local-config.sh file MUST be present inside dev-tools/lib or else NONE of the
+#               The local-config.sh file MUST be present inside tools/lib or else NONE of the
 #               SFDX-Falcon scripts will run.  Also, each Developer will need to ensure that the
 #               DEV_HUB_ALIAS variable is set to reflect the DevHub alias used in their local 
 #               environment.
@@ -18,7 +18,7 @@
 #               the developer through a brief interview to ask for the name of their Dev Hub.
 #
 # INSTRUCTIONS: Execute the following command from inside your project's root directory:  
-#               ./dev-tools/setup-local-project
+#               ./tools/setup-local-project
 #
 # RELATED DOCS: TODO: ?????
 #               └─ https://???.???.com
@@ -36,7 +36,7 @@ SUPPRESS_LOCAL_CONFIG="true"
 
 # Load shared functions library.
 if [ ! -r `dirname $0`/lib/shared-functions.sh ]; then
-  echo "\nFATAL ERROR: `tput sgr0``tput setaf 1`Could not load dev-tools/lib/shared-functions.sh.  File not found.\n"
+  echo "\nFATAL ERROR: `tput sgr0``tput setaf 1`Could not load tools/lib/shared-functions.sh.  File not found.\n"
   exit 1
 fi
 source `dirname $0`/lib/shared-functions.sh
@@ -85,7 +85,7 @@ function localSetupInterview () {
 
   # Explain to the developer that they need to know the alias to their Dev Hub
   printf "%s\n" \
-      "IMPORTANT: Before using any of the dev-tools created for this project, you must authenticate " \
+      "IMPORTANT: Before using any of the tools created for this project, you must authenticate " \
       "your CLI to the Developer Hub belonging to your company/organization.  You must also have " \
       "created an alias for that connection and know what it is to complete this wizard. " \
       "" \
@@ -143,7 +143,7 @@ function confirmConfigVariables () {
   echoUserSuppliedConfigVars
 
   # Ask the user to confirm their variables.
-  echo "Update dev-tools/templates/local-config-template.sh with the above values?\n"
+  echo "Update tools/templates/local-config-template.sh with the above values?\n"
   read -p "(type YES to accept,  NO to begin again) " CONFIRM_EXECUTION
   if [ "$CONFIRM_EXECUTION" = "YES" ]; then
     CONFIG_VARS_ACCEPTED="true"
@@ -178,7 +178,7 @@ function setLocalConfigTemplateFileVariable () {
   # NAMESPACE_PREFIX=SomePreviousString 
   #   becomes....
   # NAMESPACE_PREFIX="SomeNewString"
-  perl -pi -e "s/^${ENV_VAR_NAME}=.*/${ENV_VAR_NAME}=\"${ENV_VAR_VALUE}\"/g;" "$DETECTED_PROJECT_ROOT/dev-tools/templates/local-config-template.sh"
+  perl -pi -e "s/^${ENV_VAR_NAME}=.*/${ENV_VAR_NAME}=\"${ENV_VAR_VALUE}\"/g;" "$DETECTED_PROJECT_ROOT/tools/templates/local-config-template.sh"
 
 }
 #
@@ -253,7 +253,7 @@ done
 #
 # Echo the closing message.
 echoScriptCompleteMsg  "SFDX-Falcon project setup complete. \n
-`tput setaf 7`IMPORTANT:`tput sgr0` Commit and push dev-tools/templates/local-config-template.sh to your VCS to ensure
+`tput setaf 7`IMPORTANT:`tput sgr0` Commit and push tools/templates/local-config-template.sh to your VCS to ensure
 that your developers can initialize their projects using the values you've specified."
 
 ##END##

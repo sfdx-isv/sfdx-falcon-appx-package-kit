@@ -9,12 +9,12 @@
 #               first thing a release manager must do is customize the environment variables in
 #               the local-config-template.sh file to reflect specific choices for their project.  
 #
-#               These variables must be set properly to ensure that SFDX-Falcon dev-tools scripts
+#               These variables must be set properly to ensure that SFDX-Falcon tools scripts
 #               work correctly when individaul developers clone the project's repository and 
 #               initialize it for development in their local environment.
 #
 # INSTRUCTIONS: Execute the following command from inside your project's root directory:  
-#               ./dev-tools/setup-core-project
+#               ./tools/setup-core-project
 #
 # RELATED DOCS: TODO: ?????
 #               └─ https://???.???.com
@@ -32,7 +32,7 @@ SUPPRESS_LOCAL_CONFIG="true"
 
 # Load shared functions library.
 if [ ! -r `dirname $0`/lib/shared-functions.sh ]; then
-  echo "\nFATAL ERROR: `tput sgr0``tput setaf 1`Could not load dev-tools/lib/shared-functions.sh.  File not found.\n"
+  echo "\nFATAL ERROR: `tput sgr0``tput setaf 1`Could not load tools/lib/shared-functions.sh.  File not found.\n"
   exit 1
 fi
 source `dirname $0`/lib/shared-functions.sh
@@ -42,7 +42,7 @@ source `dirname $0`/lib/shared-functions.sh
 ##
 echoWarningMsg "This script should only be run by your team's Release Manager or Lead Developer. \n
 `tput setaf 7`IMPORTANT:`tput sgr0` If you are a developer and need to initialize this project for your local
-environment you should abort this script and run dev-tools/initialize-project instead."
+environment you should abort this script and run tools/initialize-project instead."
 
 confirmScriptExecution "Do you want to start the project setup wizard?"
 #
@@ -57,7 +57,7 @@ DETECTED_PROJECT_ROOT=""
 findProjectRoot DETECTED_PROJECT_ROOT
 
 # Set the path to the local-config template file.
-LOCAL_CONFIG_TEMPLATE_FILEPATH="$DETECTED_PROJECT_ROOT/dev-tools/templates/local-config-template.sh.ejs"
+LOCAL_CONFIG_TEMPLATE_FILEPATH="$DETECTED_PROJECT_ROOT/tools/templates/local-config-template.sh.ejs"
 
 # These are set during the interview process.
 NAMESPACE_PREFIX=""
@@ -161,7 +161,7 @@ function confirmConfigVariables () {
   echoUserSuppliedConfigVars
 
   # Ask the user to confirm their variables.
-  echo "Update dev-tools/templates/local-config-template.sh with the above values?\n"
+  echo "Update tools/templates/local-config-template.sh with the above values?\n"
   read -p "(type YES to accept,  NO to begin again) " CONFIRM_EXECUTION
   if [ "$CONFIRM_EXECUTION" = "YES" ]; then
     CONFIG_VARS_ACCEPTED="true"
@@ -271,7 +271,7 @@ updateProjectFiles
 #
 # Echo the closing message.
 echoScriptCompleteMsg  "SFDX-Falcon project setup complete. \n
-`tput setaf 7`IMPORTANT:`tput sgr0` Commit and push dev-tools/templates/local-config-template.sh to your VCS to ensure
+`tput setaf 7`IMPORTANT:`tput sgr0` Commit and push tools/templates/local-config-template.sh to your VCS to ensure
 that your developers can initialize their projects using the values you've specified."
 
 ##END##
