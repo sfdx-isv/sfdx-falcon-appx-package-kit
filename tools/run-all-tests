@@ -8,7 +8,7 @@
 # DESCRIPTION:  ##ADD_DESCRIPTIION_HERE##
 #
 # INSTRUCTIONS: Execute the following command relative to your project's root directory:  
-#               ./dev-tools/run_all_tests
+#               ./tools/run_all_tests
 #
 # RELATED DOCS: TODO: ?????
 #               └─ https://???.???.com
@@ -20,7 +20,7 @@
 #### LOAD SHARED FUNCTIONS LIBRARY #################################################################
 #
 if [ ! -r `dirname $0`/lib/shared-functions.sh ]; then
-  echo "\nFATAL ERROR: `tput sgr0``tput setaf 1`Could not load dev-tools/lib/shared-functions.sh.  File not found.\n"
+  echo "\nFATAL ERROR: `tput sgr0``tput setaf 1`Could not load tools/lib/shared-functions.sh.  File not found.\n"
   exit 1
 fi
 source `dirname $0`/lib/shared-functions.sh

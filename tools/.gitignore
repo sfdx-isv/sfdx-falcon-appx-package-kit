@@ -3,7 +3,7 @@
 # - local-config.sh
 # - custom_*
 #
-# This file (local-config.sh) is used by the shell scripts found in ./dev-tools
+# This file (local-config.sh) is used by the shell scripts found in ./tools
 # to provide customized settings for each developer working on an SFDX-Falcon
 # based project.  Because these variables are customized per developer, this 
 # local-config file should NOT be tracked in source control.

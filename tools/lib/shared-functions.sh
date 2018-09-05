@@ -3,11 +3,11 @@
 #
 # FILENAME:     shared-functions.sh
 #
-# PURPOSE:      Common header file for all dev-tools scripts. Contains shared functions.
+# PURPOSE:      Common header file for all tools scripts. Contains shared functions.
 #
-# DESCRIPTION:  Contains shared functions used by all of the dev-tools shell scripts.
+# DESCRIPTION:  Contains shared functions used by all of the tools shell scripts.
 #
-# INSTRUCTIONS: This script should be sourced at the top of all dev-tools shell scripts.
+# INSTRUCTIONS: This script should be sourced at the top of all tools shell scripts.
 #               Do not source this script manually from the command line. If you do, all of the
 #               shell variables set by this script (including those from local-config.sh) will be
 #               set in the user's shell, and any changes to local-config.sh may not be picked up
@@ -334,16 +334,16 @@ findProjectRoot () {
   # Detect the path to the directory that the running script was called from.
   local PATH_TO_RUNNING_SCRIPT="$( cd "$(dirname "$0")" ; pwd -P )"
 
-  # Grab the last 10 characters of the detected path.  This should be "/dev-tools".
-  local DEV_TOOLS_SLICE=${PATH_TO_RUNNING_SCRIPT: -10} 
+  # Grab the last 6 characters of the detected path.  This should be "/tools".
+  local DEV_TOOLS_SLICE=${PATH_TO_RUNNING_SCRIPT: -6}
 
-  # Make sure the last 10 chars of the path are "/dev-tools".  
+  # Make sure the last 6 chars of the path are "/tools".
   # Kill the script with an error if not.
-  if [[ $DEV_TOOLS_SLICE != "/dev-tools" ]]; then
-    echoErrorMsg "Script was not executed within the <project-root>/dev-tools directory."
+  if [[ $DEV_TOOLS_SLICE != "/tools" ]]; then
+    echoErrorMsg "Script was not executed within the <project-root>/tools directory."
     tput sgr 0; tput bold;
     echo "Shell scripts that utilize FALCON Developer Tools must be executed from"
-    echo "inside the dev-tools directory found at the root of your SFDX project.\n"
+    echo "inside the tools directory found at the root of your SFDX project.\n"
     exit 1
   fi
 
@@ -366,7 +366,7 @@ initializeHelperVariables () {
   CONFIRM_EXECUTION=""                                  # Indicates the user's choice whether to execute a script or not
   PROJECT_ROOT=""                                       # Path to the root of this SFDX project
   TARGET_ORG_ALIAS=""                                   # Target of all Salesforce CLI commands during this run
-  LOCAL_CONFIG_FILE_NAME=dev-tools/lib/local-config.sh  # Name of the file that contains local config variables
+  LOCAL_CONFIG_FILE_NAME=tools/lib/local-config.sh  # Name of the file that contains local config variables
   CURRENT_STEP=1                                        # Used by echoStepMsg() to indicate the current step
   TOTAL_STEPS=0                                         # Used by echoStepMsg() to indicate total num of steps
   CURRENT_QUESTION=1                                    # Used by echoQuestion() to indicate the current question
@@ -519,21 +519,21 @@ initializeHelperVariables
 # CHECK IF LOCAL CONFIG SHOULD BE SUPPRESSED.
 # If $SUPPRESS_LOCAL_CONFIG has been set to "true" DO NOT load the local configuration
 # variables.  A script that includes shared-functions.sh can set this variable to 
-# force this behavior (dev-tools/setup-core-project for example).
+# force this behavior (tools/setup-core-project for example).
 if [ "$SUPPRESS_LOCAL_CONFIG" = "true" ]; then
   # Comment out the following line unless you're debugging setup-core-project.
-  # echo "Local dev-tools configuration (local-config.sh) has been suppressed"
+  # echo "Local tools configuration (local-config.sh) has been suppressed"
   return 0
 fi
 
 # CHECK IF LOCAL CONFIG FILE EXISTS
 # Look for the local config variables script local-config.sh.  If the developer has not created a
-# local-config.sh file in dev-tools/lib then EXIT from the shell script with an error message. 
+# local-config.sh file in tools/lib then EXIT from the shell script with an error message. 
 if [ ! -r "$PROJECT_ROOT/$LOCAL_CONFIG_FILE_NAME" ]; then
-  echoErrorMsg "Local dev-tools configuration file not found"
+  echoErrorMsg "Local tools configuration file not found"
   tput sgr 0; tput bold;
-  echo "Please create a local-config.sh file in your dev-tools/lib directory by copying"
-  echo "dev-tools/templates/local-config-template.sh and customizing it with your local settings\n"
+  echo "Please create a local-config.sh file in your tools/lib directory by copying"
+  echo "tools/templates/local-config-template.sh and customizing it with your local settings\n"
   exit 1
 fi
 

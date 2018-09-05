@@ -6,7 +6,7 @@
 #
 # PURPOSE:      Template for creating a personalized local-config.sh file.
 #
-# DESCRIPTION:  All shell scripts in the dev-tools directory require several configuration values
+# DESCRIPTION:  All shell scripts in the tools directory require several configuration values
 #               to run correctly (eg. the path to your project's root directory or the alias of
 #               the DevHub that you want to use.  These customizations can be specific to each
 #               individual developer, and therefore should not be tracked by the project's VCS.
@@ -14,9 +14,9 @@
 #               This file serves as a template that Release Managers can use to establish baseline
 #               values for their project.  When individaul developers clone the repo and initialize
 #               their local, personal version of the project this template is used to create a
-#               customized local-config.sh file at <project-root>/dev-tools/lib/local-config.sh
+#               customized local-config.sh file at <project-root>/tools/lib/local-config.sh
 #
-# INSTRUCTIONS: 1. Inside of the dev-tools directory, execute the following command
+# INSTRUCTIONS: 1. Inside of the tools directory, execute the following command
 #                  cp ./templates/local-config-template.sh.ejs ./lib/local-config.sh
 #               2. Edit the default values in your local-config.sh to meet the needs of your local
 #                  environment and project setup.
@@ -31,26 +31,26 @@
 #
 # Alias for the Dev Hub that should be used when creating scratch orgs for this project.
 # This variable will always need to be customized for individual developers.
-DEV_HUB_ALIAS="<%%-userAnswers.devHubAlias%>"
+DEV_HUB_ALIAS="<%-metaAnswers.devHubAlias%>"
 
 # Namespace Prefix.  Set to empty string ("") if this project is not building a managed package.
-NAMESPACE_PREFIX="<%-userAnswers.namespacePrefix%>"
+NAMESPACE_PREFIX="<%-finalAnswers.namespacePrefix%>"
 
 # Package Name.  Specified as part of the Package Detail info in your packaging org. 
 # Surround this value with double-quotes if your package name contains space characters.
 # Set to empty string ("") if this project is not building a managed package.
-PACKAGE_NAME="<%-userAnswers.packageName%>"
+PACKAGE_NAME="<%-finalAnswers.packageName%>"
 
 # Metadata Package ID.  Refers to the metadata package as a whole.  Must begin with "033".
 # Set to empty string ("") if this project is not building a managed package.
-METADATA_PACKAGE_ID="<%-userAnswers.metadataPackageId%>"
+METADATA_PACKAGE_ID="<%-finalAnswers.metadataPackageId%>"
 
 # Package Version ID. Refers to a specific, installable version of a package. Must begin with "04t".
 # Set to empty string ("") if this project is not building a managed package.
-PACKAGE_VERSION_ID="<%-userAnswers.packageVersionId%>"
+PACKAGE_VERSION_ID="<%-finalAnswers.packageVersionIdRelease%>"
 
 # Default Package Directory. Should match what is set in sfdx-project.json.
-DEFAULT_PACKAGE_DIR_NAME="<%-userAnswers.packageDirectory%>"
+DEFAULT_PACKAGE_DIR_NAME="<%-finalAnswers.packageDirectory%>"
 
 # Alias for the primary Scratch Org used by this project.
 SCRATCH_ORG_ALIAS="$NAMESPACE_PREFIX-SCRATCH"
@@ -64,7 +64,7 @@ SUBSCRIBER_ORG_ALIAS="$NAMESPACE_PREFIX-SUBSCRIBER"
 # Git Remote URI. SSH or HTTPS URI that points to the Git remote repo used by this project.
 # GitHub is used as an example here, but any Git remote (ie. BitBucket) can be used.
 # Set to empty string ("") if this project is not being tracked in a remote repository.
-GIT_REMOTE_URI="<%-userAnswers.gitRemoteUri%>"
+GIT_REMOTE_URI="<%-finalAnswers.gitRemoteUri%>"
 
 # Location of the primary scratch-def.json file that should be used by SFDX-Falcon scripts that
 # create scratch orgs (eg. rebuild-scratch-org).

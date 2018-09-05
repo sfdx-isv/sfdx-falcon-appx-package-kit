@@ -14,7 +14,7 @@
 #               successful build can be performed.
 #
 # INSTRUCTIONS: 1. Create a self-signed SSL certificate and private key using the helper script
-#                     <repository-root>dev-tools/make-server-key
+#                     <repository-root>tools/make-server-key
 #
 #               2. Create a connected app using the certificate from step one.  See the Trailhead
 #                  module, "Create Your Connected App" for more details. (linked provided below)
