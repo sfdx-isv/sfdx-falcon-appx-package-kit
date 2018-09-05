@@ -1,6 +1,10 @@
-# SFDX-Falcon Project Template
+# SFDX-Falcon AppExchange Package Kit (APK)
 
-This template can be used as a starting point for any Salesforce DX project, but has been specialized for building managed packages.  Each directory in this repository contains a README file describing its purpose, what type of files it should contain, and additional setup/configuration details (if needed).
+The **AppExchange Package Kit (APK)** builds on the [SFDX-Falcon Template](https://github.com/sfdx-isv/sfdx-falcon-template) to provide tools and frameworks tailored specifically for developing Managed Packages in agile, continuously-building, team-based envrionments using Salesforce DX.
+
+![AppExchange Package Kit (APK) falcon:apk:create](https://drive.google.com/uc?export=view&id=1w6rjKATHKy972B3OLlgIWoICmwnTekgK)
+
+If you'd like to learn more about the benefits of an SFDX-Falcon based project, please view the following video.
 
 **Intro Video:** [Salesforce 201: Advanced Implementation for ISVs](http://bit.ly/sfdx-flow-for-isvs-falcon-intro)
 
