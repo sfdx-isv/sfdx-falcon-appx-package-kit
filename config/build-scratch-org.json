@@ -1,6 +1,6 @@
 {
   "recipeName":     "Build Scratch Org",
-  "description":    "Recipe for Building/Rebuilding this AppX Package Kit (APK) project",
+  "description":    "Builds/Rebuilds this AppX Package Kit (APK) project",
   "recipeType":     "appx:package-recipe",
   "recipeVersion":  "1.0.0",
   "schemaVersion":  "0.1.2",
@@ -12,14 +12,27 @@
     "targetOrgs": [
       {
         "orgName":        "Scratch Org",
-        "alias":          "<%-finalAnswers.producerAlias%>_<%-finalAnswers.projectAlias%>_scratch",
+        "alias":          "<%-finalAnswers.projectAlias%>_scratch",
         "description":    "Pushes managed package source into a Scratch Org",
         "isScratchOrg":   true,
-        "scratchDefJson": "project-scratch-def.json"
+        "scratchDefJson": "dev-build-scratch-def.json"
       }
     ]
   },
-  "recipeStepGroups": [],
+  "recipeStepGroups": [
+    {
+      "stepGroupName":  "Push Source",
+      "alias":          "push-source",
+      "description":    "Pushes SFDX source to the scratch org",
+      "recipeSteps": [
+        { 
+          "stepName":     "Push Source",
+          "description":  "Pushes SFDX source to the scratch org",
+          "action":       "source-push"
+        }
+      ]
+    }
+  ],
   "handlers": [
     {},
     {}

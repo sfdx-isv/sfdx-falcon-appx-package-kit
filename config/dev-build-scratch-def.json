@@ -1,0 +1,14 @@
+{
+  "orgName": "<%-finalAnswers.scratchDefOrgName%>",
+  "description": "<%-finalAnswers.scratchDefDescription%>",
+  "country": "US",
+  "edition": "Developer",
+  "hasSampleData": false,
+  "language": "en_US",
+  "features": [],
+  "settings": {
+    "orgPreferenceSettings": {
+      "S1EncryptedStoragePref2": false
+    }
+  }
+}
