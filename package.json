@@ -1,7 +1,7 @@
 {
   "name": "sfdx-falcon-appx-package-kit",
   "description": "Specialized project scaffolding for creating an AppExchange Package Kit (APK) Project using Salesforce DX and the SFDX-Falcon CLI Plugin",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "Vivek M. Chawla @VivekMChawla",
   "license": "MIT",
   "bugs": "https://github.com/sfdx-isv/sfdx-falcon-appx-package-kit/issues",
