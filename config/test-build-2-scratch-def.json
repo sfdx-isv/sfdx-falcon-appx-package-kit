@@ -1,7 +1,14 @@
 {
-    "orgName": "Your Company Name",
-    "edition": "Developer",
-    "orgPreferences" : {
-        "enabled": ["S1DesktopEnabled"]
+  "orgName": "TEST BUILD 2: <%-finalAnswers.scratchDefOrgName%>",
+  "description": "TEST BUILD 2: <%-finalAnswers.scratchDefDescription%>",
+  "country": "US",
+  "edition": "Developer",
+  "hasSampleData": false,
+  "language": "en_US",
+  "features": [],
+  "settings": {
+    "orgPreferenceSettings": {
+      "s1EncryptedStoragePref2": false
     }
+  }
 }
